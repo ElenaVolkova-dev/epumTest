@@ -1,26 +1,22 @@
 package com.elenavolkova.javatraining.fundamentals.task1;
 
+
 import java.util.*;
 
 public class OptionalTask1
 {
     private static ArrayList<Long> inputNumbers = new ArrayList();
-    private static int position = 0;
-    public static int nextDigit(long number, int position)
-    {
-        if (position == 0)
-        {
-            return (int)number % 10;
-        }
-        number = (int)(number / Math.pow(10, position));
-        return (int)(number % 10);
-    }
+    //private static int position = 0;
+//    public static int nextDigit(long number, int position)
+//    {
+//        if (position == 0)
+//        {
+//            return (int)number % 10;
+//        }
+//        number = (int)(number / Math.pow(10, position));
+//        return (int)(number % 10);
+//    }
 
-    private  static int getLength (long number)
-    {
-        return (int) Math.log10(number) + 1;
-
-    }
     private static void input()
     {
         Scanner scanner = new Scanner(System.in);
@@ -28,54 +24,94 @@ public class OptionalTask1
 
         while (scanner.hasNext() && !scanner.hasNext("q"))
         {
-            String str = scanner.next();
             try
             {
-                if (!str.equals("0"))
+                String number = scanner.next();
+                if (!number.equals("0"))
                 {
-                    inputNumbers.add(Long.valueOf(str));
+                    inputNumbers.add(Long.valueOf(number));
                 }
             }
             catch (NumberFormatException e)
             {
                 System.out.println("Input error: integer value only excluding zero. Try again.");
+
                 continue;
             }
         }
     }
-    private static void radixSort(ArrayList<Integer> input, int maxLengthOfNumber)
+    private  static int getLength (long number)
     {
-        if (position == maxLengthOfNumber)
-        {
-            return;
-        }
-        ArrayList<Integer>[] counters = new ArrayList[10];
-        //инициализация массива
-        for (int i = 0; i < counters.length; i++)
-        {
-            counters[i] = new ArrayList();
-        }
-        //Проход справа налево для i разряда
-        for (int i = 0; i < input.size(); i++)
-        {
-            int length = input.get(i);
-            int digit = nextDigit(length, position);
-            counters[digit].add(length);
+        number = Math.abs(number);
+        return (int) Math.log10(number) + 1;
 
-        }
-        //перенести результат
-        input.clear();
-        for (int i = 0; i < counters.length; i++)
+    }
+    private static int getIndexOfMaxLength(ArrayList<Long> numbers)
+    {
+        if (numbers.isEmpty()) return 0;
+        int maxLength = getLength(numbers.get(0));
+        int maxIndex = 0;
+        for (int i = 0; i < numbers.size(); i++)
         {
-            for (int j = 0; j < counters[i].size(); j++)
+            int length = getLength(numbers.get(i));
+            if (length > maxLength)
             {
-                input.add(counters[i].get(j));
+                maxLength = length;
+                maxIndex = i;
             }
         }
-        //повтор
-        position++;
-        radixSort(input, maxLengthOfNumber);
+        return maxIndex;
     }
+    private static int getIndexOfMinLength(ArrayList<Long> numbers)
+    {
+        if (numbers.isEmpty()) return 0;
+        int minLength = 0;
+        int minIndex = 0;
+        for (int i = 0; i < numbers.size(); i++)
+        {
+            int length = getLength(numbers.get(i));
+            if (length < minLength)
+            {
+                minLength = length;
+                minIndex = i;
+            }
+        }
+        return minIndex;
+    }
+
+//    private static void radixSort(ArrayList<Integer> input, int maxLengthOfNumber)
+//    {
+//        if (position == maxLengthOfNumber)
+//        {
+//            return;
+//        }
+//        ArrayList<Integer>[] counters = new ArrayList[10];
+//        //инициализация массива
+//        for (int i = 0; i < counters.length; i++)
+//        {
+//            counters[i] = new ArrayList();
+//        }
+//        //Проход справа налево для i разряда
+//        for (int i = 0; i < input.size(); i++)
+//        {
+//            int length = input.get(i);
+//            int digit = nextDigit(length, position);
+//            counters[digit].add(length);
+//
+//        }
+//        //перенести результат
+//        input.clear();
+//        for (int i = 0; i < counters.length; i++)
+//        {
+//            for (int j = 0; j < counters[i].size(); j++)
+//            {
+//                input.add(counters[i].get(j));
+//            }
+//        }
+//        //повтор
+//        position++;
+//        radixSort(input, maxLengthOfNumber);
+//    }
 
 
     private static void findOccurrencesOfDigits (int[] arr)
@@ -92,57 +128,51 @@ public class OptionalTask1
     {
         System.out.println("1. Найти самое короткое и самое длинное число. Вывести найденные числа и их длину.");
         input();
-        if (!inputNumbers.isEmpty())
-        {
-            int maxLength = getLength(inputNumbers.get(0));
-            int minLength = maxLength;
-            int maxIndex = 0;
-            int minIndex = 0;
-
-            for (int i = 1; i < inputNumbers.size(); i++)
-            {
-                int length = getLength(inputNumbers.get(i));
-                if (length > maxLength)
-                {
-                    maxLength = length;
-                    maxIndex = i;
-                }
-                else if (minLength > length)
-                {
-                    minLength = length;
-                    minIndex = i;
-                }
-            }
-            System.out.println("the longest number = " + inputNumbers.get(maxIndex) + ", its length = " + maxLength);
-            System.out.println("the shortest number = " + inputNumbers.get(minIndex) + ", its length = " + minLength);
-        }
+        if (inputNumbers.isEmpty())return;
+        int maxIndex = getIndexOfMaxLength(inputNumbers);
+        int minIndex = getIndexOfMinLength(inputNumbers);
+        int maxLength = getLength(inputNumbers.get(maxIndex));
+        int minLength = getLength(inputNumbers.get(minIndex));
+        System.out.println("the longest number = " + inputNumbers.get(maxIndex) + ", its length = " + maxLength);
+        System.out.println("the shortest number = " + inputNumbers.get(minIndex) + ", its length = " + minLength);
     }
 
 
     //2. Вывести числа в порядке возрастания (убывания) значений их длины.
-    public static void findAscendingOrDescendingLength()
+    public static void naturalOrReverseOrderbyLength()
     {
+        //Сами  чмсла не упорядочены между сосбой, только их длины
         System.out.println("2. Вывести числа в порядке возрастания (убывания) значений их длины.");
         input();
-        if (!inputNumbers.isEmpty())
+        if (inputNumbers.isEmpty())return;
+        int maxLength = getLength(inputNumbers.get(getIndexOfMaxLength(inputNumbers)));
+        ArrayList<Long>[] buffer = new ArrayList[maxLength + 1];
+        for (int i = 0; i < buffer.length; i++)
         {
-            //find length
-            ArrayList<Integer> lengthsArray = new ArrayList();
-            for (int i = 0; i < inputNumbers.size(); i++)
-            {
-                lengthsArray.add(getLength(inputNumbers.get(i)));
-            }
-            radixSort(lengthsArray, 4);
-            for (Integer i : lengthsArray)
-            {
-                System.out.println(i);
-            }
-
-
+            buffer[i] = new ArrayList();
         }
-
-
-
+        for (int i = 0; i < inputNumbers.size(); i++)
+        {
+            long num = inputNumbers.get(i);
+            int len = getLength(inputNumbers.get(i));
+            buffer[len].add(num);
+        }
+        System.out.println("Natural length order: ");
+        for (int i = 0; i < buffer.length; i++)
+        {
+            for (int j = 0; j < buffer[i].size(); j++)
+            {
+                System.out.println(buffer[i].get(j));
+            }
+        }
+        System.out.println("Reverse length order: ");
+        for (int end = buffer.length - 1; end >=0; end--)
+        {
+            for (int i = 0; i < buffer[end].size(); i++)
+            {
+                System.out.println(buffer[end].get(i));
+            }
+        }
     }
 
     //3. Вывести на консоль те числа, длина которых меньше (больше) средней длины по всем числам, а также длину.
