@@ -5,11 +5,17 @@ import java.util.*;
 public class OptionalTask1
 {
     private static ArrayList<Long> inputNumbers = new ArrayList();
+    private static int position = 0;
+    public static int nextDigit(long number, int position)
+    {
+        if (position == 0)
+        {
+            return (int)number % 10;
+        }
+        number = (int)(number / Math.pow(10, position));
+        return (int)(number % 10);
+    }
 
-//    private static long unsigned(long number)
-//    {
-//        return ~number + 1;
-//    }
     private  static int getLength (long number)
     {
         return (int) Math.log10(number) + 1;
@@ -36,68 +42,42 @@ public class OptionalTask1
                 continue;
             }
         }
-
-
-
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Please, enter numbers (integer value only excluding zero). For the exit press 'q'");
-//        while (scanner.hasNext() && !scanner.hasNext("q"))
-//        {
-//            String str = scanner.next().replaceFirst("^[0-]*", "");
-//            if (!str.matches("\\d*") || str.isEmpty())
-//            {
-//                System.out.println("Input error: integer value only excluding zero. Try again.");
-//                continue;
-//            }
-//            inputNumbers.add(str);
-//        }
     }
-
-    private static ArrayList<Long> mergeSort(ArrayList<Long> inputArray, ArrayList<Long> buffer, int left, int right)
+    private static void radixSort(ArrayList<Integer> input, int maxLengthOfNumber)
     {
-        if (left == right)
+        if (position == maxLengthOfNumber)
         {
-            return buffer;
+            return;
         }
-        int mid = (left + right) / 2;
-        ArrayList<Long> leftSubArray = mergeSort(inputArray, buffer, left, mid);
-        ArrayList<Long> rightSubArray = mergeSort(inputArray, buffer,mid+1, right);
-        ArrayList<Long> result = (leftSubArray == inputArray) ? buffer : inputArray;
-
-        int leftIndex = left;
-        int rightIndex = mid + 1;
-
-        for (int i = left; i <= right; i++)
+        ArrayList<Integer>[] counters = new ArrayList[10];
+        //инициализация массива
+        for (int i = 0; i < counters.length; i++)
         {
-            if (leftIndex <= mid && rightIndex <= right)
+            counters[i] = new ArrayList();
+        }
+        //Проход справа налево для i разряда
+        for (int i = 0; i < input.size(); i++)
+        {
+            int length = input.get(i);
+            int digit = nextDigit(length, position);
+            counters[digit].add(length);
+
+        }
+        //перенести результат
+        input.clear();
+        for (int i = 0; i < counters.length; i++)
+        {
+            for (int j = 0; j < counters[i].size(); j++)
             {
-                if (leftSubArray.get(leftIndex) < rightSubArray.get(rightIndex))
-                {
-                    result.add(i, leftSubArray.get(leftIndex));
-                    leftIndex++;
-                }
-                else
-                {
-                    result.add(i, rightSubArray.get(rightIndex));
-                    rightIndex++;
-                }
-            }
-            else if (leftIndex <= mid)
-            {
-                result.add(leftSubArray.get(leftIndex));
-                leftIndex++;
-            }
-            else
-            {
-                result.add(rightSubArray.get(rightIndex));
-                rightIndex++;
+                input.add(counters[i].get(j));
             }
         }
-        return result;
-
-
-
+        //повтор
+        position++;
+        radixSort(input, maxLengthOfNumber);
     }
+
+
     private static void findOccurrencesOfDigits (int[] arr)
     {
         int[] counters = new int[10];
@@ -106,7 +86,6 @@ public class OptionalTask1
             counters[arr[i]]++;
         }
     }
-
 
     //1. Найти самое короткое и самое длинное число. Вывести найденные числа и их длину.
     public static void findShortestAndLongestNumber()
@@ -137,39 +116,26 @@ public class OptionalTask1
             System.out.println("the longest number = " + inputNumbers.get(maxIndex) + ", its length = " + maxLength);
             System.out.println("the shortest number = " + inputNumbers.get(minIndex) + ", its length = " + minLength);
         }
-//        if (!inputNumbers.isEmpty())
-//        {
-//            String max = inputNumbers.get(0);
-//            String min = max;
-//            for (String s : inputNumbers)
-//            {
-//                if (s.length() >= max.length())
-//                {
-//                    max = s;
-//                }
-//                else
-//                {
-//                    min = s;
-//                }
-//            }
-//            System.out.println("number = " + max + " maxLength = " + max.length());
-//            System.out.println("number = " + min + " minLength = " + min.length());
-//        }
     }
-    //*2. Вывести числа в порядке возрастания (убывания) значений их длины.
-    //Collections.sort
+
+
+    //2. Вывести числа в порядке возрастания (убывания) значений их длины.
     public static void findAscendingOrDescendingLength()
     {
         System.out.println("2. Вывести числа в порядке возрастания (убывания) значений их длины.");
         input();
         if (!inputNumbers.isEmpty())
         {
-            int[] lengthList = new int[inputNumbers.size()];
-            for (Long l : inputNumbers)
+            //find length
+            ArrayList<Integer> lengthsArray = new ArrayList();
+            for (int i = 0; i < inputNumbers.size(); i++)
             {
-
-                ArrayList<Long> buff = new ArrayList();
-                ArrayList<Long> res = mergeSort(inputNumbers, buff, 0, inputNumbers.size() - 1);
+                lengthsArray.add(getLength(inputNumbers.get(i)));
+            }
+            radixSort(lengthsArray, 4);
+            for (Integer i : lengthsArray)
+            {
+                System.out.println(i);
             }
 
 
