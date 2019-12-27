@@ -24,19 +24,21 @@ public class OptionalTask1
 
         while (scanner.hasNext() && !scanner.hasNext("q"))
         {
+            if (scanner.hasNext("0"))
+            {
+                System.out.println("Input error: zero. Try again.");
+                scanner.next();
+                continue;
+            }
             try
             {
-                String number = scanner.next();
-                if (!number.equals("0"))
-                {
-                    inputNumbers.add(Long.valueOf(number));
-                }
+                long number = scanner.nextLong();
+                inputNumbers.add(Long.valueOf(number));
             }
-            catch (NumberFormatException e)
+            catch (InputMismatchException e)
             {
                 System.out.println("Input error: integer value only excluding zero. Try again.");
-
-                continue;
+                scanner.next();
             }
         }
     }
@@ -129,6 +131,7 @@ public class OptionalTask1
         System.out.println("1. Найти самое короткое и самое длинное число. Вывести найденные числа и их длину.");
         input();
         if (inputNumbers.isEmpty())return;
+
         int maxIndex = getIndexOfMaxLength(inputNumbers);
         int minIndex = getIndexOfMinLength(inputNumbers);
         int maxLength = getLength(inputNumbers.get(maxIndex));
@@ -145,18 +148,22 @@ public class OptionalTask1
         System.out.println("2. Вывести числа в порядке возрастания (убывания) значений их длины.");
         input();
         if (inputNumbers.isEmpty())return;
+
         int maxLength = getLength(inputNumbers.get(getIndexOfMaxLength(inputNumbers)));
         ArrayList<Long>[] buffer = new ArrayList[maxLength + 1];
+        //init
         for (int i = 0; i < buffer.length; i++)
         {
             buffer[i] = new ArrayList();
         }
+        //set
         for (int i = 0; i < inputNumbers.size(); i++)
         {
             long num = inputNumbers.get(i);
             int len = getLength(inputNumbers.get(i));
             buffer[len].add(num);
         }
+        //print
         System.out.println("Natural length order: ");
         for (int i = 0; i < buffer.length; i++)
         {
@@ -176,36 +183,37 @@ public class OptionalTask1
     }
 
     //3. Вывести на консоль те числа, длина которых меньше (больше) средней длины по всем числам, а также длину.
-    public static void compareLengthWithAverage()
+    public static void compareWithAverageLength()
     {
-        //Math.max/min
         System.out.println("3. Вывести на консоль те числа," +
                               " длина которых меньше (больше) средней длины по всем числам, а также длину.");
         input();
-//        int totalLength = 0;
-//        for (String s : inputNumbers)
-//        {
-//            totalLength += s.length();
-//        }
-//        int average = totalLength / inputNumbers.size();
-//
-//        System.out.println("AverageLength = " + average);
-//        for (String s : inputNumbers)
-//        {
-//            if (s.length() < average)
-//            {
-//                System.out.println("Number = " + s + ", (length < average: (" + s.length() + " < " + average + ")");
-//            }
-//
-//            else if (s.length() > average)
-//            {
-//                System.out.println("Number = " + s + ", (length > average: (" + s.length() + " > " + average + ")");
-//            }
-//            else
-//            {
-//                System.out.println("Number = " + s + ", (length = average: (" + s.length() + " = " + average + ")");
-//            }
-//        }
+        if (inputNumbers.isEmpty()) return;
+
+        int totalLength = 0;
+        for (Long n : inputNumbers)
+        {
+            totalLength += getLength(n);
+        }
+        int average = totalLength / inputNumbers.size();
+
+        System.out.println("AverageLength = " + average);
+        for (Long n : inputNumbers)
+        {
+            int numberLength = getLength(n);
+            if (numberLength < average)
+            {
+                System.out.println("Number = " + n + ", (length < average: (" + numberLength + " < " + average + ")");
+            }
+            else if (numberLength > average)
+            {
+                System.out.println("Number = " + n + ", (length > average: (" + numberLength + " > " + average + ")");
+            }
+            else
+            {
+                System.out.println("Number = " + n + ", (length = average: (" + numberLength + " = " + average + ")");
+            }
+        }
     }
 
     //4. Найти число, в котором количество различных цифр минимально. Если таких чисел несколько, найти первое из них.
@@ -280,6 +288,16 @@ public class OptionalTask1
         System.out.println("5. Найти количество чисел, содержащих только четные цифры," +
                             " а среди оставшихся — количество чисел с равным числом четных и нечетных цифр.");
 //        input();
+
+        long n = -448454654610L;
+        byte lowBit = (byte) (n&1);
+        if (lowBit == 1)
+        {
+            System.out.println("нечетное");
+        }
+        else
+            System.out.println("четное");
+
         long l = -6656568L;
         l = Math.abs(l);
         String s = Long.toBinaryString(l);
