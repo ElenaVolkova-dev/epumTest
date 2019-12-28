@@ -82,12 +82,15 @@ public class OptionalTask1
     }
     private static int nextDigit(long number, int position)
     {
+        long rem;
         if (position == 0)
         {
-            return (int)number % 10;
+            rem = number % 10;
+            return (int) rem;
         }
-        number = (int)(number / Math.pow(10, position));
-        return (int)(number % 10);
+        number = (long) (number / Math.pow(10, position));
+        rem = number % 10;
+        return (int) rem;
     }
 
 //    private static void radixSort(ArrayList<Integer> input, int maxLengthOfNumber)
@@ -220,7 +223,7 @@ public class OptionalTask1
     {
         int digitsRange = 10;
         int numberLength = getLength(number);
-        int[] counters = new int[digitsRange];
+        long[] counters = new long[digitsRange];
 
         for (int i = 0; i < numberLength; i++)
         {
@@ -275,39 +278,60 @@ public class OptionalTask1
     {
         System.out.println("5. Найти количество чисел, содержащих только четные цифры," +
                             " а среди оставшихся — количество чисел с равным числом четных и нечетных цифр.");
-        //input();
-        //if (inputNumbers.isEmpty()) return;
+        input();
+        if (inputNumbers.isEmpty()) return;
 
-        long n = -448454654610L;
-        byte lowBit = (byte) (n&1);
-        if (lowBit == 1)
+        int evenCounter = 0;
+        int oddCounter = 0;
+        for(Long n : inputNumbers)
         {
-            System.out.println("нечетное");
+            int numberSize = getLength(n);
+            int even = 0;
+            int odd = 0;
+            evenCounter = 0;
+            oddCounter = 0;
+            for(int i = 0; i < numberSize; i++)
+            {
+                int digit = nextDigit(n, i);
+                byte lowBit = (byte)(digit&1);
+                if (lowBit == 0)
+                {
+                    even++;
+                }
+                else
+                {
+                    odd++;
+                }
+            }
+            if (even == getLength(n)) evenCounter++;
+            if (even == odd) oddCounter++;
         }
-        else
-            System.out.println("четное");
+        System.out.println(evenCounter);
+        System.out.println(oddCounter);
 
-        long l = -6656568L;
-        l = Math.abs(l);
-        String s = Long.toBinaryString(l);
-        if (s.endsWith("0"))
-        {
-            System.out.println("Четное");
-        }
-        else
-        {
-            System.out.println("Нечетное");
-        }
-        //Распарсить на цифры
-        int size = getLength(l);
-        int[] arr = new int[size];
-        for (int i = 0; i < size; i++)
-        {
-            int r = (int) l % 10;
-            arr[i] = r;
-            l /= 10;
 
-        }
+
+//        long l = -6656568L;
+//        l = Math.abs(l);
+//        String s = Long.toBinaryString(l);
+//        if (s.endsWith("0"))
+//        {
+//            System.out.println("Четное");
+//        }
+//        else
+//        {
+//            System.out.println("Нечетное");
+//        }
+//        //Распарсить на цифры
+//        int size = getLength(l);
+//        int[] arr = new int[size];
+//        for (int i = 0; i < size; i++)
+//        {
+//            int r = (int) l % 10;
+//            arr[i] = r;
+//            l /= 10;
+//
+//        }
 
 //        int evenDigit;
 //        int oddDigit;
