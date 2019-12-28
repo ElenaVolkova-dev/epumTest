@@ -80,6 +80,15 @@ public class OptionalTask1
         }
         return minIndex;
     }
+    private static int nextDigit(long number, int position)
+    {
+        if (position == 0)
+        {
+            return (int)number % 10;
+        }
+        number = (int)(number / Math.pow(10, position));
+        return (int)(number % 10);
+    }
 
 //    private static void radixSort(ArrayList<Integer> input, int maxLengthOfNumber)
 //    {
@@ -114,16 +123,6 @@ public class OptionalTask1
 //        position++;
 //        radixSort(input, maxLengthOfNumber);
 //    }
-
-
-    private static void findOccurrencesOfDigits (int[] arr)
-    {
-        int[] counters = new int[10];
-        for (int i = 0; i < arr.length; i++)
-        {
-            counters[arr[i]]++;
-        }
-    }
 
     //1. Найти самое короткое и самое длинное число. Вывести найденные числа и их длину.
     public static void findShortestAndLongestNumber()
@@ -217,77 +216,67 @@ public class OptionalTask1
     }
 
     //4. Найти число, в котором количество различных цифр минимально. Если таких чисел несколько, найти первое из них.
-//    private static int amountOfUniqueDigits (String number)
-//    {
-//         int[] counters = new int[10];
-//        for (int i = 0; i < arr.length; i++)
-//        {
-//            counters[arr[i]]++;
-//        }
-//
-//        int[] digits = new int[10];
-//        int counter = 0;
-//        for (int i = 0; i < number.length(); i++)
-//        {
-//            int symbol = Character.getNumericValue(number.charAt(i));
-//            if (digits[symbol] == 0)
-//            {
-//                digits[symbol] = 1; //unique digit
-//                counter++;
-//            }
-//            else
-//            {
-//                digits[symbol] = -1;
-//                counter--;
-//            }
-//        }
-//        int counter = 0;
-//        for (int i = 0; i < digits.length; i++)
-//        {
-//            if (digits[i] == 1)
-//            {
-//                counter++;
-//            }
-//        }
-//        return counter;
-//    }
+    private static int amountOfUniqueDigits (long number)
+    {
+        int digitsRange = 10;
+        int numberLength = getLength(number);
+        int[] counters = new int[digitsRange];
 
-    public static void findMinimumOfUniqueDigits() //не работает
+        for (int i = 0; i < numberLength; i++)
+        {
+            counters[nextDigit(number, i)]++;
+        }
+        int counter = 0;
+        for (int i = 0; i < counters.length; i++)
+        {
+            if (counters[i] == 1)
+            {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public static void findMinimumOfUniqueDigits()
     {
         System.out.println("4. Найти число, в котором количество различных цифр минимально." +
                             " Если таких чисел несколько, найти первое из них.");
         input();
-//        int minLength = amountOfUniqueDigits(inputNumbers.get(0));
-//        int numberIndex = 0;
-//        int currentLength = 0;
-//        while (numberIndex < inputNumbers.size())
-//        {
-//
-//            currentLength = amountOfUniqueDigits(number);
-//            if (currentLength <= minLength)
-//            {
-//                minLength = currentLength;
-//            }
-//            numberIndex++;
-//        }
-//        if (currentLength != 0)
-//        {
-//            System.out.println("number " + inputNumbers.get(numberIndex - 1));
-//        }
-//        else
-//        {
-//            System.out.println("No numbers matching the condition" );
-//        }
+        if (inputNumbers.isEmpty()) return;
+
+        int minUnique = 20; //*****************************???
+        boolean match = false;
+        int numberIndex = 0;
+        int unique;
+        for (int i = 0; i < inputNumbers.size(); i++)
+        {
+            unique = amountOfUniqueDigits(inputNumbers.get(i));
+            if (unique == 0) continue;
+            if (unique < minUnique)
+            {
+                minUnique = unique;
+                numberIndex = i;
+                match = true;
+            }
+        }
+        if (match)
+        {
+            System.out.println("number = " + inputNumbers.get(numberIndex) + ", unique digits = " + minUnique);
+        }
+        else
+        {
+            System.out.println("No numbers matching the condition" );
+        }
     }
 
     //5.  Найти количество чисел, содержащих только четные цифры,
     // а среди оставшихся — количество чисел с равным числом четных и нечетных цифр.
-    //****** переписать через двоичное предстваление
     public static void findEvenOrOddDigits()
     {
         System.out.println("5. Найти количество чисел, содержащих только четные цифры," +
                             " а среди оставшихся — количество чисел с равным числом четных и нечетных цифр.");
-//        input();
+        //input();
+        //if (inputNumbers.isEmpty()) return;
 
         long n = -448454654610L;
         byte lowBit = (byte) (n&1);
