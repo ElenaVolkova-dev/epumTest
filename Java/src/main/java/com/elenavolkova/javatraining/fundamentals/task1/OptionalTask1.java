@@ -281,19 +281,16 @@ public class OptionalTask1
         input();
         if (inputNumbers.isEmpty()) return;
 
-        int evenCounter = 0;
-        int oddCounter = 0;
+        int[] result = new int[2];
         for(Long n : inputNumbers)
         {
             int numberSize = getLength(n);
             int even = 0;
             int odd = 0;
-            evenCounter = 0;
-            oddCounter = 0;
             for(int i = 0; i < numberSize; i++)
             {
                 int digit = nextDigit(n, i);
-                byte lowBit = (byte)(digit&1);
+                byte lowBit = (byte)(digit & 1);
                 if (lowBit == 0)
                 {
                     even++;
@@ -303,68 +300,11 @@ public class OptionalTask1
                     odd++;
                 }
             }
-            if (even == getLength(n)) evenCounter++;
-            if (even == odd) oddCounter++;
+            if (even == getLength(n)) result[0]++;
+            if (even == odd) result[1]++;
         }
-        System.out.println(evenCounter);
-        System.out.println(oddCounter);
-
-
-
-//        long l = -6656568L;
-//        l = Math.abs(l);
-//        String s = Long.toBinaryString(l);
-//        if (s.endsWith("0"))
-//        {
-//            System.out.println("Четное");
-//        }
-//        else
-//        {
-//            System.out.println("Нечетное");
-//        }
-//        //Распарсить на цифры
-//        int size = getLength(l);
-//        int[] arr = new int[size];
-//        for (int i = 0; i < size; i++)
-//        {
-//            int r = (int) l % 10;
-//            arr[i] = r;
-//            l /= 10;
-//
-//        }
-
-//        int evenDigit;
-//        int oddDigit;
-//        int evenNumber = 0;
-//        int oddNumber = 0;
-//        for (int i = 0; i < inputNumbers.size(); i++)
-//        {
-//            evenDigit = 0;
-//            oddDigit = 0;
-//            String str = inputNumbers.get(i);
-//            for (int j = 0; j < str.length(); j++)
-//            {
-//                int symbol = Character.getNumericValue(str.charAt(j));
-//                if (symbol % 2 == 0)
-//                {
-//                    evenDigit++;
-//                }
-//                else
-//                {
-//                    oddDigit++;
-//                }
-//            }
-//            if (evenDigit == str.length())
-//            {
-//                evenNumber++;
-//            }
-//            else if (evenDigit == oddDigit)
-//            {
-//                oddNumber++;
-//            }
-//        }
-//        System.out.println("even amount = " + evenNumber);
-//        System.out.println("odd=even amount = " + oddNumber);
+        System.out.println("Even digits only: " + result[0] + " numbers;");
+        System.out.println("Even = odd digits only: " + result[1] + " numbers.");
     }
 
     //6. Найти число, цифры в котором идут в строгом порядке возрастания. Если таких чисел несколько, найти первое из них.
