@@ -281,30 +281,31 @@ public class OptionalTask1
         input();
         if (inputNumbers.isEmpty()) return;
 
-        int[] resultCounter = new int[4]; //even, odd, evenResult, oddResult
+        int evenCounter = 0;
+        int oddCounter = 0;
         for(Long n : inputNumbers)
         {
+            int even = 0;
+            int odd = 0;
             int numberSize = getLength(n);
-            resultCounter[0] = 0;
-            resultCounter[1] = 0;
             for(int i = 0; i < numberSize; i++)
             {
                 int digit = nextDigit(n, i);
                 byte lowBit = (byte)(digit & 1);
                 if (lowBit == 0)
                 {
-                    resultCounter[0]++;
+                    even++;
                 }
                 else
                 {
-                    resultCounter[1]++;
+                    odd++;
                 }
             }
-            if (resultCounter[0] == getLength(n)) resultCounter[2]++;
-            if (resultCounter[0] == resultCounter[1]) resultCounter[3]++;
+            if (even == getLength(n)) evenCounter++;
+            if (even == odd) oddCounter++;
         }
-        System.out.println("Even digits only: " + resultCounter[2] + " numbers;");
-        System.out.println("Even = odd digits only: " + resultCounter[3] + " numbers.");
+        System.out.println("Even digits only: " + evenCounter + " numbers;");
+        System.out.println("Even = odd digits: " + oddCounter + " numbers.");
     }
 
     //6. Найти число, цифры в котором идут в строгом порядке возрастания. Если таких чисел несколько, найти первое из них.
