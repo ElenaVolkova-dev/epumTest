@@ -311,60 +311,56 @@ public class OptionalTask1
     //6. Найти число, цифры в котором идут в строгом порядке возрастания. Если таких чисел несколько, найти первое из них.
     public static void findDigitsInAscendingOrder()
     {
-//        System.out.println("6. Найти число, цифры в котором идут в строгом порядке возрастания." +
-//                            " Если таких чисел несколько, найти первое из них.");
-//        input();
-//        for (int i = 0; i < inputNumbers.size(); i++)
-//        {
-//            boolean res = false;
-//            String number = inputNumbers.get(i);
-//            for (int first = 0; first < number.length()-1; first+=2)
-//            {
-//                int mid;
-//                int last;
-//                if (first == number.length()-2) //для четных чисел
-//                {
-//                   mid = first;
-//                   if (!(number.charAt(first) < number.charAt(mid)))
-//                   {
-//                       break;
-//                   }
-//                    res = true;
-//                }
-//                else
-//                {
-//                    mid = first + 1;
-//                    last = mid + 1;
-//                    if (!(number.charAt(first) < number.charAt(mid) && number.charAt(mid) < number.charAt(last)))
-//                    {
-//                        break;
-//                    }
-//                    res = true;
-//                }
-//            }
-//            if (res)
-//            {
-//                System.out.println(inputNumbers.get(i));
-//            }
-//        }
+        System.out.println("6. Найти число, цифры в котором идут в строгом порядке возрастания." +
+                            " Если таких чисел несколько, найти первое из них.");
+        input();
+        if (inputNumbers.isEmpty()) return;
+
+        boolean match = false;
+        for (int i = 0; i < inputNumbers.size(); i++)
+        {
+            long number = inputNumbers.get(i);
+            int rightDigit = nextDigit(number, 0);
+            for (int d = 1; d < getLength(number); d++)
+            {
+                int leftDigit = nextDigit(number, d);
+                if (rightDigit > leftDigit)
+                {
+                    match = true;
+                    rightDigit = leftDigit;
+                }
+                else
+                {
+                    match = false;
+                }
+            }
+            if (match == true)
+            {
+                System.out.println("Number is = " + number);
+                return;
+            }
+        }
+        System.out.println("No matches");
     }
 
     //7. Найти число, состоящее только из различных цифр. Если таких чисел несколько, найти первое из них.
     public static void findOnlyUniqueDigits()
     {
-//        System.out.println("7. Найти число, состоящее только из различных цифр." +
-//                            " Если таких чисел несколько, найти первое из них.");
-//        input();
-//        for (int i = 0; i < inputNumbers.size(); i++)
-//        {
-//            String num = inputNumbers.get(i);
-//            int uniqueDigitsAmount = amountOfUniqueDigits(num);
-//            if (num.length() == uniqueDigitsAmount)
-//            {
-//                System.out.println(inputNumbers.get(i));
-//                break;
-//            }
-//        }
+        System.out.println("7. Найти число, состоящее только из различных цифр." +
+                            " Если таких чисел несколько, найти первое из них.");
+        input();
+        if (inputNumbers.isEmpty()) return;
+
+        for (int i = 0; i < inputNumbers.size(); i++)
+        {
+            long num = inputNumbers.get(i);
+            int uniqueDigitsAmount = amountOfUniqueDigits(num);
+            if (getLength(num) == uniqueDigitsAmount)
+            {
+                System.out.println(inputNumbers.get(i));
+                break;
+            }
+        }
     }
 }
 
