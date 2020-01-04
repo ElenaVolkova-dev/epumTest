@@ -1,6 +1,4 @@
-package com.elenavolkova.javatraining.fundamentals.task1;
-
-
+package com.elenavolkova.javatraining.fundamentals;
 import java.util.*;
 
 public class OptionalTask1
@@ -144,7 +142,7 @@ public class OptionalTask1
 
 
     //2. Вывести числа в порядке возрастания (убывания) значений их длины.
-    public static void naturalOrReverseOrderbyLength()
+    public static void naturalOrReverseOrder()
     {
         //Сами  чмсла не упорядочены между сосбой, только их длины
         System.out.println("2. Вывести числа в порядке возрастания (убывания) значений их длины.");
