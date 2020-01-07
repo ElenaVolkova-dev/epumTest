@@ -12,7 +12,7 @@ public class OptionalTask2
     {
         System.out.println("Enter matrix size");
         size = scanner.nextInt();
-        while (size <= 0)
+        while (size <= 1)
         {
             System.out.println("Enter correct size");
             size = scanner.nextInt();
@@ -134,4 +134,55 @@ public class OptionalTask2
     }
 
     //2. Найти и вывести наибольшее число возрастающих (убывающих) элементов матрицы, идущих подряд.
+    private static int[] toOneD_Array()
+    {
+        int[] result = new int[size*size];
+        for (int row = 0; row < size; row++)
+        {
+            for (int column = 0; column < size; column++)
+            {
+                result[(row * size) + column] = matrix[row][column];
+            }
+        }
+        return result;
+    }
+
+    public static void ascendingElementsInOrder()
+    {
+        input();
+        int[] arr = toOneD_Array();
+        //int arr[] = { -29, -24, -100,};
+        for (int e : arr)
+        {
+            System.out.print(e + " ");
+        }
+        int indexStart = 0;
+        //int indexEnd = 0;
+        int start = 0;
+        int end = 1;
+        int maxDelta = 1;
+        //int minDelta = 1;
+        for (int i = 0; i < arr.length; i++)
+        {
+            if (arr[i] < arr[end])
+            {
+                if (end < arr.length - 1) end++;
+            }
+            else
+            {
+                if (end - start > maxDelta)
+                {
+                    indexStart = start;
+                    maxDelta = end - start;
+                }
+                start = end;
+                if (end < arr.length - 1) end++;
+            }
+        }
+        System.out.println();
+        for (int i = indexStart; i <= maxDelta; i++)
+        {
+            System.out.print(arr[i] + " ");
+        }
+    }
 }
