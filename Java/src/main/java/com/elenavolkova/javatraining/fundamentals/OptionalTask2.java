@@ -149,40 +149,75 @@ public class OptionalTask2
 
     public static void ascendingElementsInOrder()
     {
-        input();
-        int[] arr = toOneD_Array();
-        //int arr[] = { -29, -24, -100,};
+        //input();
+        //int[] arr = toOneD_Array();
+        int arr[] = { 77, 3, -78, -82, -70, -94, 88, 62, 71};
         for (int e : arr)
         {
             System.out.print(e + " ");
         }
-        int indexStart = 0;
+        System.out.println();
+        //int indexStart = 0;
         //int indexEnd = 0;
-        int start = 0;
-        int end = 1;
-        int maxDelta = 1;
+        //int begin = 0;
+        //int end = 1;
+        //int maxDelta = 1;
         //int minDelta = 1;
-        for (int i = 0; i < arr.length; i++)
+        //i сделать концом окошка, а начало итерировать внутри цикла
+        int left = 0;
+        int right = left + 1;
+        int delta = 1;
+        int start = left;
+        int index = 0;
+        while (right < arr.length)
         {
-            if (arr[i] < arr[end])
+            if (arr[left] < arr[right])
             {
-                if (end < arr.length - 1) end++;
+                left++;
+                right++;
             }
             else
             {
-                if (end - start > maxDelta)
+                int newDelta = right - start;
+                if (newDelta > delta)
                 {
-                    indexStart = start;
-                    maxDelta = end - start;
+                    delta = newDelta;
+                    index = start;
                 }
-                start = end;
-                if (end < arr.length - 1) end++;
+                start = right;
+                left = right;
+                right++;
             }
         }
-        System.out.println();
-        for (int i = indexStart; i <= maxDelta; i++)
+        for (int i = 0; i < delta; i++)
         {
-            System.out.print(arr[i] + " ");
+            System.out.print(arr[index] + " ");
+            index++;
         }
+
+
+//        for (int i = 0; i < arr.length; i++)
+//        {
+//            if (arr[i] < arr[end])
+//            {
+//                if (end < arr.length - 1) end++;
+//            }
+//            else
+//            {
+//                if (end - begin > maxDelta)
+//                {
+//                    indexStart = begin;
+//                    maxDelta = end - begin;
+//                }
+//                begin = end;
+//                end = begin + 1; //out  end!!!!!
+//                //if (end < arr.length - 1) end++;
+//            }
+//        }
+        //System.out.println("AscendingElements: ");
+//        for (int i = indexStart; i <= maxDelta; i++)
+//        {
+//            System.out.print(arr[i] + " ");
+//        }
     }
 }
