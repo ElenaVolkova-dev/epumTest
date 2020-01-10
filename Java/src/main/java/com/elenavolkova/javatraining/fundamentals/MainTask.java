@@ -8,14 +8,13 @@ public class MainTask
 {
     static Scanner scanner = new Scanner(System.in);
 
-    //---------------------------------------------------------------------------------
     //  1. Приветствовать любого пользователя при вводе его имени через командную строку.
     public static void greetingOutput()
     {
         System.out.println("Please, enter your name: ");
         System.out.println("Hello, " + scanner.nextLine() + "!");
     }
-    //---------------------------------------------------------------------------------
+
     //  2. Отобразить в окне консоли аргументы командной строки в обратном порядке.
     public static void reverseOutput()
     {
@@ -27,7 +26,7 @@ public class MainTask
         }
         System.out.println();
     }
-    //---------------------------------------------------------------------------------
+
     //  3. Вывести заданное количество случайных чисел с переходом и без перехода на новую строку
     public  static  void numbersOutput()
     {
@@ -46,7 +45,7 @@ public class MainTask
             System.out.println(e);
         }
     }
-    //---------------------------------------------------------------------------------
+
     // 4. Ввести целые числа как аргументы командной строки, подсчитать их сумму
     // (произведение) и вывести результат на консоль.
     public static void sumAndProduct()
@@ -72,26 +71,11 @@ public class MainTask
         }
         System.out.println("Sum of numbers = " + sum + ", product = "  + product);
     }
-    //---------------------------------------------------------------------------------
+
     //5. Ввести число от 1 до 12. Вывести на консоль название месяца, соответствующего
     // данному числу. Осуществить проверку корректности ввода чисел.
     public static void dayOfMonth()
     {
-        /*System.out.println("Please, enter a number between 1-12:");
-        if (scanner.hasNextInt())
-        {
-            int number = scanner.nextInt();
-            if (number > 0 && number <= 12)
-            {
-                System.out.println(Month.of(number));
-            }
-            else
-            {
-                System.out.println("saveInput error");
-            }
-
-        }*/
-
         System.out.println("Please, enter a number between 1-12:");
         try
         {

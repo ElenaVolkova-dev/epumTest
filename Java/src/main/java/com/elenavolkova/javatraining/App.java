@@ -1,11 +1,13 @@
 package com.elenavolkova.javatraining;
 
-import com.elenavolkova.javatraining.fundamentals.task1.OptionalTask1;
+import com.elenavolkova.javatraining.fundamentals.MainTask;
+import com.elenavolkova.javatraining.fundamentals.OptionalTask1;
+import com.elenavolkova.javatraining.fundamentals.OptionalTask2;
 
 
 public class App
 {
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
         //MainTask.greetingOutput();
         //MainTask.reverseOutput();
@@ -15,12 +17,22 @@ public class App
 
 
         //OptionalTask1.findShortestAndLongestNumber();
-        //OptionalTask1.findAscendingOrDescendingLength();
-        //OptionalTask1.compareLengthWithAverage();
+        //OptionalTask1.naturalOrReverseOrder();
+        //OptionalTask1.compareWithAverageLength();
         //OptionalTask1.findMinimumOfUniqueDigits();
         //OptionalTask1.findEvenOrOddDigits();
-        OptionalTask1.findDigitsInAscendingOrder();
+        //OptionalTask1.findDigitsInAscendingOrder();
         //OptionalTask1.findOnlyUniqueDigits();
+
+        //OptionalTask2.sortMatrixByRow();
+        //OptionalTask2.sortMatrixByColumn();
+        OptionalTask2.ascendingElementsInOrder();
+
+
+
+
+
+
 
 
 
@@ -36,3 +48,4 @@ public class App
 
     }
 }
+
