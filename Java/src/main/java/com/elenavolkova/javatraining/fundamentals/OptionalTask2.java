@@ -151,73 +151,65 @@ public class OptionalTask2
     {
         //input();
         //int[] arr = toOneD_Array();
-        int arr[] = { 77, 3, -78, -82, -70, -94, 88, 62, 71};
+        //int[] arr = {5,4, 1,2,3, 1};
+        //int[] arr = {1,2,3,5, 4};
+        //int[] arr = {1,2,3};
+        //int[] arr = {5,3,2};
+        int[] arr = {5,4, 1,2,3, 1,2, 1,2,3,4,5,6};
+        //int[] arr = {-87,-79,53,  -95,-48,0,  -5,  -71,1};
+        //int[] arr = {6, 3, 1,2 };
         for (int e : arr)
         {
             System.out.print(e + " ");
         }
         System.out.println();
-        //int indexStart = 0;
-        //int indexEnd = 0;
-        //int begin = 0;
-        //int end = 1;
-        //int maxDelta = 1;
-        //int minDelta = 1;
-        //i сделать концом окошка, а начало итерировать внутри цикла
         int left = 0;
         int right = left + 1;
-        int delta = 1;
-        int start = left;
-        int index = 0;
+
+        int startSequence = 0;
+        int endSequence = startSequence + 1;
+
+        int firstIndex = 0;
+        int lastIndex = 0;
+
+        boolean isStartSaved = false;
+        int check = 1;
+        int counter = 1;
+        int saveStart = 0;
+
+        //array loop
         while (right < arr.length)
         {
-            if (arr[left] < arr[right])
+            // subsequence loop
+            while (endSequence < arr.length && arr[startSequence] < arr[endSequence])
             {
-                left++;
-                right++;
-            }
-            else
-            {
-                int newDelta = right - start;
-                if (newDelta > delta)
+                if (!isStartSaved)
                 {
-                    delta = newDelta;
-                    index = start;
+                    saveStart = startSequence;
+                    isStartSaved = true;
                 }
-                start = right;
-                left = right;
-                right++;
+                counter++;
+                startSequence++;
+                endSequence++;
             }
+            if (counter > check)
+            {
+                check = counter;
+                firstIndex = saveStart;
+                lastIndex = endSequence;
+            }
+            startSequence = endSequence;
+            endSequence++;
+            counter = 1;
+            isStartSaved = false;
+            left++;
+            right++;
         }
-        for (int i = 0; i < delta; i++)
+        while (firstIndex < lastIndex)
         {
-            System.out.print(arr[index] + " ");
-            index++;
+            System.out.print(arr[firstIndex] + " ");
+            firstIndex++;
         }
-
-
-//        for (int i = 0; i < arr.length; i++)
-//        {
-//            if (arr[i] < arr[end])
-//            {
-//                if (end < arr.length - 1) end++;
-//            }
-//            else
-//            {
-//                if (end - begin > maxDelta)
-//                {
-//                    indexStart = begin;
-//                    maxDelta = end - begin;
-//                }
-//                begin = end;
-//                end = begin + 1; //out  end!!!!!
-//                //if (end < arr.length - 1) end++;
-//            }
-//        }
-        //System.out.println("AscendingElements: ");
-//        for (int i = indexStart; i <= maxDelta; i++)
-//        {
-//            System.out.print(arr[i] + " ");
-//        }
     }
 }
+
