@@ -146,16 +146,15 @@ public class OptionalTask2
         }
         return result;
     }
-
-    public static void ascendingElementsInOrder()
+    public static void findSubsequence()
     {
-        //input();
-        //int[] arr = toOneD_Array();
+        input();
+        int[] arr = toOneD_Array();
         //int[] arr = {5,4, 1,2,3, 1};
         //int[] arr = {1,2,3,5, 4};
         //int[] arr = {1,2,3};
         //int[] arr = {5,3,2};
-        int[] arr = {5,4, 1,2,3, 1,2, 1,2,3,4,5,6};
+        //int[] arr = {5,4, 1,2,3, 1,2, 1,2,3,4,5,6, 6,5,4,1};
         //int[] arr = {-87,-79,53,  -95,-48,0,  -5,  -71,1};
         //int[] arr = {6, 3, 1,2 };
         for (int e : arr)
@@ -163,6 +162,7 @@ public class OptionalTask2
             System.out.print(e + " ");
         }
         System.out.println();
+
         int left = 0;
         int right = left + 1;
 
@@ -180,6 +180,9 @@ public class OptionalTask2
         //array loop
         while (right < arr.length)
         {
+            //сhange change comparison operator
+            //if ascending order: arr[startSequence] < arr[endSequence]
+            //if descending order: arr[startSequence] > arr[endSequence]
             // subsequence loop
             while (endSequence < arr.length && arr[startSequence] < arr[endSequence])
             {
@@ -210,6 +213,37 @@ public class OptionalTask2
             System.out.print(arr[firstIndex] + " ");
             firstIndex++;
         }
+    }
+
+    //3. Найти сумму элементов матрицы, расположенных между первым и вторым положительными элементами каждой строки
+    public static void sumOfMatrixElements()
+    {
+        input();
+        print();
+        int totalSum = 0;
+        int rowSum = 0;
+        int occurrence = 0;
+
+        for (int row = 0; row < size; row++)
+        {
+            occurrence = 0;
+            rowSum = 0;
+            for (int column = 0; column < size; column++)
+            {
+                if (matrix[row][column] > 0)
+                {
+                    occurrence++;
+                }
+                if (occurrence == 2) break;
+                if (occurrence == 1 && matrix[row][column] < 0)
+                {
+                    rowSum += matrix[row][column];
+                }
+            }
+            if (occurrence == 1) rowSum = 0;
+            totalSum += rowSum;
+        }
+        System.out.println(totalSum);
     }
 }
 

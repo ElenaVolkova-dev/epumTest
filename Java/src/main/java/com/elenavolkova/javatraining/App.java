@@ -1,7 +1,5 @@
 package com.elenavolkova.javatraining;
 
-import com.elenavolkova.javatraining.fundamentals.MainTask;
-import com.elenavolkova.javatraining.fundamentals.OptionalTask1;
 import com.elenavolkova.javatraining.fundamentals.OptionalTask2;
 
 
@@ -26,7 +24,8 @@ public class App
 
         //OptionalTask2.sortMatrixByRow();
         //OptionalTask2.sortMatrixByColumn();
-        OptionalTask2.ascendingElementsInOrder();
+        //OptionalTask2.findSubsequence();
+        OptionalTask2.sumOfMatrixElements();
 
 
 
