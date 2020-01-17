@@ -1,12 +1,38 @@
 package com.elenavolkova.javatraining.fundamentals;
+
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
+class IndexPair
+{
+    public int row;
+    public int column;
+    IndexPair(int r, int c)
+    {
+        row = r;
+        column = c;
+    }
+
+
+//    public void setRow(int r) { row = r; }
+//    public void setColumn(int c) { column = c; }
+//    public int getRow() { return row; }
+//    public int getColumn() { return column; }
+}
+
+//class MaxValue
+//{
+//    int value;
+//    int occurence;
+//}
 
 public class OptionalTask2
 {
     private static int size;
     private static int[][] matrix;
     private static Scanner scanner = new Scanner(System.in);
+    private static final int check = -500;
 
     private static void input()
     {
@@ -32,13 +58,20 @@ public class OptionalTask2
         int i = min + ran.nextInt(max - min + 1);
         return i;
     }
-    private static void print()
+    private static void print(int[][]arr)
     {
-        for (int row = 0; row < size; row++)
+        System.out.print("\t" + "  ");
+        for (int i = 0; i < arr.length; i++)
         {
-            for (int column = 0; column < size; column++)
+            System.out.printf("%-5s", "[" + i + "]");
+        }
+        System.out.println();
+        for (int row = 0; row < arr.length; row++)
+        {
+            System.out.print("[" + row + "]");
+            for (int column = 0; column < arr.length; column++)
             {
-                System.out.printf("%5d", matrix[row][column]);
+                System.out.printf("%5d", arr[row][column]);
             }
             System.out.println();
         }
@@ -110,10 +143,10 @@ public class OptionalTask2
             sortRow = scanner.nextInt();
         }
         System.out.println("Original: ");
-        print();
+        print(matrix);
         SelectionSortOfRow(matrix, sortRow);
         System.out.println("Sorted: ");
-        print();
+        print(matrix);
     }
     public static  void sortMatrixByColumn()
     {
@@ -127,10 +160,10 @@ public class OptionalTask2
             sortColumn = scanner.nextInt();
         }
         System.out.println("Original: ");
-        print();
+        print(matrix);
         SelectionSortOfColumn(matrix, sortColumn);
         System.out.println("Sorted: ");
-        print();
+        print(matrix);
     }
 
     //2. Найти и вывести наибольшее число возрастающих (убывающих) элементов матрицы, идущих подряд.
@@ -219,7 +252,7 @@ public class OptionalTask2
     public static void sumOfMatrixElements()
     {
         input();
-        print();
+        print(matrix);
         int totalSum = 0;
         int rowSum = 0;
         int occurrence = 0;
@@ -244,6 +277,100 @@ public class OptionalTask2
             totalSum += rowSum;
         }
         System.out.println(totalSum);
+    }
+
+    //4. Найти максимальный элемент в матрице и удалить из матрицы все строки и столбцы, его содержащие
+    private static ArrayList<IndexPair> getMaxMatchList(int[][] arr)
+    {
+        ArrayList<IndexPair> matchList = new ArrayList<>();
+        int max = arr[0][0];
+        //MaxValue max = new MaxValue();
+        //max.value = arr[0][0];
+        //max.occurence = 1;
+        for (int row = 0; row < arr.length; row++)
+        {
+            int column = 0;
+            if (row == 0) column = 1;
+            for (; column < arr.length; column++)
+            {
+                if (arr[row][column] > max)
+                {
+                    max = arr[row][column];
+                    //max.occurence = 1;
+                }
+                if (arr[row][column] == max)
+                {
+                    matchList.add(new IndexPair(row, column));
+                }
+            }
+        }
+        return matchList;
+    }
+//    private static int[][] replaceRowAndColumns(int[][] inputMatrix, int row, int column)
+//    {
+//        int newSize = inputMatrix.length - 1;
+//        int[][] newMatrix = new int[newSize][newSize];
+//        int fromRow = 0;
+//        int fromColumn = 0;
+//        for (int r = 0; r <  newSize; r++)
+//        {
+//            if (fromRow == row) fromRow++;
+//            if (fromRow == inputMatrix.length)break;
+//            for (int c = 0; c < newSize; c++)
+//            {
+//                if (fromColumn == column) fromColumn++;
+//                if (fromColumn == inputMatrix.length)break;
+//                newMatrix[r][c] = inputMatrix[fromRow][fromColumn];
+//                fromColumn++;
+//            }
+//            fromRow++;
+//            fromColumn = 0;
+//        }
+//        return newMatrix;
+//    }
+    private static int[][] deleteElements (int[][] arr, ArrayList<IndexPair> matchList)
+    {
+        //найти вхождение элемента
+        for (int row = 0; row < arr.length; row++)
+        {
+            
+        }
+        return arr;
+    }
+
+    public static void deleteMaxElement()
+    {
+        //input();
+        //if (matrix.length == 2) return;
+        int[][]test = new int[3][3];
+        test[0][0] = 5;
+        test[0][1] = 2;
+        test[0][2] = 3;
+        test[1][0] = 4;
+        test[1][1] = 6;
+        test[1][2] = 3;
+        test[2][0] = 6;
+        test[2][1] = 4;
+        test[2][2] = 1;
+
+
+
+        print(test);
+        ArrayList<IndexPair> list = getMaxMatchList(test);
+        //System.out.println(max.value + " " +  max.occurence + " time(s)");
+        //int[][] m = deleteElements(max, test);
+//        print(m);
+//        for (int i = 0; i < m.length; i++)
+//        {
+//            for (int j = 0; j < m.length; j++)
+//            {
+//                if (m[i][j] != -500)
+//                {
+//                    System.out.printf("%5d", m[i][j]);
+//                }
+//            }
+//            System.out.println();
+//        }
     }
 }
 

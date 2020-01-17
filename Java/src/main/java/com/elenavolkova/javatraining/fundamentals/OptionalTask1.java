@@ -4,16 +4,6 @@ import java.util.*;
 public class OptionalTask1
 {
     private static ArrayList<Long> inputNumbers = new ArrayList();
-    //private static int position = 0;
-//    public static int nextDigit(long number, int position)
-//    {
-//        if (position == 0)
-//        {
-//            return (int)number % 10;
-//        }
-//        number = (int)(number / Math.pow(10, position));
-//        return (int)(number % 10);
-//    }
 
     private static void input()
     {

@@ -25,7 +25,8 @@ public class App
         //OptionalTask2.sortMatrixByRow();
         //OptionalTask2.sortMatrixByColumn();
         //OptionalTask2.findSubsequence();
-        OptionalTask2.sumOfMatrixElements();
+        //OptionalTask2.sumOfMatrixElements();
+        OptionalTask2.deleteMaxElement();
 
 
 
